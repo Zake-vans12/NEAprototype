@@ -14,7 +14,6 @@
 
 
     Public Function weightsMatrix() As Integer(,)
-        ReDim weightactivationMatrix()
     End Function
 
 
