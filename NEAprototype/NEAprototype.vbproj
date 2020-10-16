@@ -82,6 +82,7 @@
     <Compile Include="D:\zak\All my NEA stuff\prototype\Module1.vb">
       <Link>Module1.vb</Link>
     </Compile>
+    <Compile Include="Matrix.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -100,6 +101,7 @@
     <Compile Include="Node.vb" />
     <Compile Include="OutputLayerClass.vb" />
     <Compile Include="TrainingData.vb" />
+    <Compile Include="vector.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form2.resx">
