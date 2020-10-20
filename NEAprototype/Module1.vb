@@ -1,14 +1,8 @@
-﻿Imports System.Drawing
-
-
-Module Module1
-
-    Sub Main()
-        Dim myform As New Form2
-
-        myform.ShowDialog()
+﻿Module Module1
+    Sub New()
 
 
     End Sub
+
 
 End Module

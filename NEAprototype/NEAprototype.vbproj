@@ -79,10 +79,8 @@
     <Compile Include="Form2.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="D:\zak\All my NEA stuff\prototype\Module1.vb">
-      <Link>Module1.vb</Link>
-    </Compile>
     <Compile Include="Matrix.vb" />
+    <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
