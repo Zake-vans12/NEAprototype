@@ -18,15 +18,17 @@
     End Sub
 
     Public Function addvectors(ByVal vectorin As vector) As vector
-        Dim vector1values() As Double
-        Dim vector2values() As Double
-        Dim temparray() As Double
+        Dim temparray(MyBase.returnY) As Double
+        Dim tempbase, tempin As Double
         If MyBase.getdimesions()(1) = vectorin.getdimesions()(1) Then
             For i = 0 To MyBase.getdimesions()(1)
-
+                tempbase = MyBase.getarrayout()(0, i)
+                tempin = vectorin.getarrayout()(0, i)
+                temparray(i) = tempbase + tempin
             Next
         End If
-
+        Dim vectoroutput As New vector(temparray.Length() - 1, temparray)
+        Return vectoroutput
     End Function
 
 

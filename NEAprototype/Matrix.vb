@@ -26,7 +26,7 @@
     End Function
 
     Public Function matrixtimesvector(ByVal vectorin As vector) As vector 'Any matrix * Vector will always give a vector and it will most likley to then have to be added to another vector
-        Dim tempinarray() As Double
+        Dim tempinarray(ysize) As Double
         Dim tempsumvalue As Double
         If vectorin.getdimesions()(1) = xsize Then
             For i = 0 To ysize
@@ -55,5 +55,8 @@
 
     End Sub
 
+    Public Function returnY() As Double
+        Return ysize
+    End Function
 
 End Class

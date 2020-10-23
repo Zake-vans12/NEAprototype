@@ -1,13 +1,11 @@
 ﻿Imports System.Drawing
 
 Public Class Inputlayernodes
-    Inherits node
 
     Private nodearray() As Double
 
 
     Sub New(ByVal filelocation As String)
-        MyBase.new()
         Dim Inputactivation As New inputData(filelocation)
         Dim inputActivationresized As New Bitmap(Inputactivation.getimage, Inputactivation.getimage.Width / 4, Inputactivation.getimage.Height / 4)
         Dim nodearray = converttoblackandwhite(inputActivationresized)
