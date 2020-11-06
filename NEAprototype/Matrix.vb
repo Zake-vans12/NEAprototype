@@ -55,6 +55,25 @@
 
     End Sub
 
+    Public Sub Transpose()
+        Dim tempmatrix(ysize, xsize) As Integer
+        For x = 0 To xsize
+            For y = 0 To ysize
+                matrixarray(x, y) = tempmatrix(y, x)
+            Next
+        Next
+        Dim tempx As Integer
+        tempx = xsize
+        xsize = ysize
+        ysize = tempx
+        ReDim matrixarray(xsize, ysize)
+        For x = 0 To xsize
+            For y = 0 To ysize
+                matrixarray(x, y) = tempmatrix(x, y)
+            Next
+        Next
+    End Sub
+
     Public Function returnY() As Double
         Return ysize
     End Function

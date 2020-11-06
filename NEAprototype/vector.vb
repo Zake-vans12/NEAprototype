@@ -31,5 +31,34 @@
         Return vectoroutput
     End Function
 
+    Public Function hadamardproduct(ByVal vectorin As vector) As vector
+        Dim temparray(MyBase.returnY) As Double
+        Dim tempbase, tempin As Double
+        If MyBase.getdimesions()(1) = vectorin.getdimesions()(1) Then
+            For i = 0 To MyBase.getdimesions()(1)
+                tempbase = MyBase.getarrayout()(0, i)
+                tempin = vectorin.getarrayout()(0, i)
+                temparray(i) = tempbase * tempin
+            Next
+        End If
+        Dim vectoroutput As New vector(temparray.Length() - 1, temparray)
+        Return vectoroutput
+    End Function
+
+    Public Function sigmoid() As vector
+        Dim temparray(MyBase.returnY) As Double
+        For i = 0 To MyBase.getdimesions()(1)
+            temparray(i) = 1 / (1 + Math.E ^ -temparray(i))
+        Next
+        Dim vectoroutput As New vector(temparray.Length() - 1, temparray)
+    End Function
+
+    Public Function sigmoid_prime() As vector
+        Dim temparray(MyBase.returnY) As Double
+        For i = 0 To MyBase.getdimesions()(1)
+            temparray(i) = (1 / (1 + Math.E ^ -temparray(i))) * (1 - (1 / (1 + Math.E ^ -temparray(i))))
+        Next
+        Dim vectoroutput As New vector(temparray.Length() - 1, temparray)
+    End Function
 
 End Class

@@ -1,4 +1,5 @@
-﻿Module Module1
+﻿Imports System.Drawing
+Module Module1
     Sub main()
         Dim matrix1 As New Matrix(2, 2, False)
         Dim matrixarray As Double(,) = {{3, 4, 2}, {2, 9, 3}, {1, 5, 1}}
