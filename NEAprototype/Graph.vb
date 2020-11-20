@@ -80,36 +80,58 @@ Public Class Graph
     End Function
 
 
-    'Function converttoblackandwhite(ByVal inputimage As Bitmap) As Double()
-    '    Dim pixelcolour As New Color
-    '    Dim temp As Integer
-    '    Dim pointer As Integer
-    '    Dim nodearray(inputimage.Height + 1 * inputimage.Width + 1) As Double
+    Private Function convertimagetovalues(ByVal inputimage As Bitmap) As vector
+        Dim pixelcolour As New Color
+        Dim temp As Integer
+        Dim pointer As Integer
+        Dim nodearray(inputimage.Height + 1 * inputimage.Width + 1) As Double
 
-    '    For y = 0 To inputimage.Height
-    '        For x = 0 To inputimage.Width
+        For y = 0 To inputimage.Height
+            For x = 0 To inputimage.Width
 
-    '            pixelcolour = inputimage.GetPixel(x, y)
+                pixelcolour = inputimage.GetPixel(x, y)
 
-    '            Dim pixelcolourarray = {pixelcolour.A, pixelcolour.R, pixelcolour.G, pixelcolour.B} 'takes the aRGB value for the current pixel
+                Dim pixelcolourarray = {pixelcolour.A, pixelcolour.R, pixelcolour.G, pixelcolour.B} 'takes the aRGB value for the current pixel
 
-    '            For i = 1 To 3
-    '                temp += pixelcolourarray(i)
-    '            Next
-    '            temp = temp / 3
+                For i = 1 To 3
+                    temp += pixelcolourarray(i)
+                Next
+                temp = temp / 3
 
-    '            temp = convertTodouble(temp)
+                temp = Getvaluefromcolour(temp)
 
-    '            nodearray(pointer) = temp
-    '        Next
-    '    Next
+                nodearray(pointer) = temp
+            Next
+        Next
 
 
 
-    '    Return nodearray
+        Return nodearray
 
-    'End Function
+    End Function
 
+
+    Private Function Getvaluefromcolour(ByVal inputtoconvert As Integer) As Double
+        Dim binarynumber(7) As Boolean
+        Dim returnvalue As Double
+        For i = 7 To 0 Step -1
+            If inputtoconvert Mod 2 = 1 Then
+                binarynumber(i) = True
+                inputtoconvert = inputtoconvert / 2 - 0.5
+            Else
+                binarynumber(i) = False
+                inputtoconvert = inputtoconvert / 2
+            End If
+        Next
+
+        For i = 0 To 7
+            If binarynumber(i) Then
+                returnvalue += 1 / 2 ^ (i + 1)
+            End If
+
+        Next
+        Return t
+    End Function
 
 
 
