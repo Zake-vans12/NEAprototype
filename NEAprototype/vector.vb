@@ -45,20 +45,23 @@
         Return vectoroutput
     End Function
 
-    Public Function sigmoid() As vector
+    Public Function sigmoid() As Double()
         Dim temparray(MyBase.returnY) As Double
         For i = 0 To MyBase.getdimesions()(1)
             temparray(i) = 1 / (1 + Math.E ^ -temparray(i))
         Next
-        Dim vectoroutput As New vector(temparray.Length() - 1, temparray)
+        Return temparray
     End Function
 
-    Public Function sigmoid_prime() As vector
-        Dim temparray(MyBase.returnY) As Double
+    Public Sub sigmoid_prime()
+        Dim temparray(0, MyBase.returnY) As Double
         For i = 0 To MyBase.getdimesions()(1)
-            temparray(i) = (1 / (1 + Math.E ^ -temparray(i))) * (1 - (1 / (1 + Math.E ^ -temparray(i))))
+            temparray(0, i) = (1 / (1 + Math.E ^ -temparray(0, i))) * (1 - (1 / (1 + Math.E ^ -temparray(0, i))))
         Next
-        Dim vectoroutput As New vector(temparray.Length() - 1, temparray)
-    End Function
+        MyBase.pushtoarry(temparray)
+    End Sub
+
+
+
 
 End Class

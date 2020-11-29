@@ -11,6 +11,7 @@ Public Class Graph
     Private imagelookupLABLE() As Integer
     Private minibatchIMAGE(,) As Bitmap
     Private minibatchLABLE(,) As Integer
+    Private networksizefinal() As Integer
 
     Sub New(ByVal isnewnetwork As Boolean, ByVal networksize As Integer())
         Dim nullarray() As Double = {}
@@ -19,7 +20,8 @@ Public Class Graph
         ReDim zvalues(networksize.Length - 1)
         ReDim errors(networksize.Length - 1)
         ReDim weightsmatrix(networksize.Length - 1)
-
+        ReDim networksizefinal(networksize.Length - 1)
+        networksizefinal = networksize
         If isnewnetwork Then
             activations(0) = New vector(networksize(0), nullarray)
 
@@ -69,69 +71,36 @@ Public Class Graph
 
     End Sub
 
-    Public Function sendtestingdatathroughnetwrok(ByVal inputimage As Bitmap) As Integer
-        Dim pixelcolor As New Color
-
-        For y = 0 To inputimage.Height
-            For x = 0 To inputimage.Width
-
-            Next
+    Public Function sendtestingdatathroughnetwrok(ByVal inputarray() As Double) As Integer
+        Dim newinputarray(0, inputarray.Length - 1) As Double
+        Dim highestoutput As Integer
+        Dim readoutputvalue As Double
+        For i = 0 To inputarray.Length - 1
+            newinputarray(0, i) = inputarray(i)
         Next
-    End Function
-
-
-    Private Function convertimagetovalues(ByVal inputimage As Bitmap) As vector
-        Dim pixelcolour As New Color
-        Dim temp As Integer
-        Dim pointer As Integer
-        Dim nodearray(inputimage.Height + 1 * inputimage.Width + 1) As Double
-
-        For y = 0 To inputimage.Height
-            For x = 0 To inputimage.Width
-
-                pixelcolour = inputimage.GetPixel(x, y)
-
-                Dim pixelcolourarray = {pixelcolour.A, pixelcolour.R, pixelcolour.G, pixelcolour.B} 'takes the aRGB value for the current pixel
-
-                For i = 1 To 3
-                    temp += pixelcolourarray(i)
-                Next
-                temp = temp / 3
-
-                temp = Getvaluefromcolour(temp)
-
-                nodearray(pointer) = temp
-            Next
+        activations(0).pushtoarry(newinputarray)
+        For i = 0 To networksizefinal.Length - 1
+            zvalues(i) = weightsmatrix(i).matrixtimesvector(activations(i))
+            zvalues(i) = zvalues(i).addvectors(biases(i))
+            activations(i + 1) = New vector(inputarray.Length - 1, zvalues(i).sigmoid())
         Next
 
+        For i = 0 To networksizefinal.Last - 1
 
-
-        Return nodearray
-
-    End Function
-
-
-    Private Function Getvaluefromcolour(ByVal inputtoconvert As Integer) As Double
-        Dim binarynumber(7) As Boolean
-        Dim returnvalue As Double
-        For i = 7 To 0 Step -1
-            If inputtoconvert Mod 2 = 1 Then
-                binarynumber(i) = True
-                inputtoconvert = inputtoconvert / 2 - 0.5
-            Else
-                binarynumber(i) = False
-                inputtoconvert = inputtoconvert / 2
+            If activations.Last.getarrayout()(0, i) > readoutputvalue Then
+                readoutputvalue = activations.Last.getarrayout()(0, i)
+                highestoutput = i + 1
             End If
         Next
-
-        For i = 0 To 7
-            If binarynumber(i) Then
-                returnvalue += 1 / 2 ^ (i + 1)
-            End If
-
-        Next
-        Return t
+        Return highestoutput
     End Function
+
+    Public Sub backpropagation()
+
+    End Sub
+
+
+
 
 
 
