@@ -8,13 +8,13 @@
 
     Public Sub New(ByVal dimensionsofvector As Integer, ByVal initalvalues As Double())
         MyBase.New(0, dimensionsofvector, False)
-        Dim vectortopush(0, dimensionsofvector) As Double
+        Dim vectortopush(dimensionsofvector) As Double
         If dimensionsofvector = initalvalues.Length - 1 Then
             For i = 0 To dimensionsofvector
-                vectortopush(0, i) = initalvalues(i)
+                vectortopush(i) = initalvalues(i)
             Next
         End If
-        MyBase.pushtoarry(vectortopush)
+        MyBase.pushtoarryvector(vectortopush)
     End Sub
 
     Public Function addvectors(ByVal vectorin As vector) As vector
@@ -46,21 +46,22 @@
     End Function
 
     Public Function sigmoid() As Double()
+        Dim tempmatrixarray(,) As Double = MyBase.getarrayout()
         Dim temparray(MyBase.returnY) As Double
         For i = 0 To MyBase.getdimesions()(1)
-            temparray(i) = 1 / (1 + Math.E ^ -temparray(i))
+            temparray(i) = 1 / (1 + Math.E ^ (-tempmatrixarray(0, i)))
         Next
         Return temparray
     End Function
 
     Public Sub sigmoid_prime()
-        Dim temparray(0, MyBase.returnY) As Double
+        Dim tempmatrixarray(,) As Double = MyBase.getarrayout()
+        Dim temparray(MyBase.returnY) As Double
         For i = 0 To MyBase.getdimesions()(1)
-            temparray(0, i) = (1 / (1 + Math.E ^ -temparray(0, i))) * (1 - (1 / (1 + Math.E ^ -temparray(0, i))))
+            temparray(i) = (1 / (1 + Math.E ^ -tempmatrixarray(0, i))) * (1 - (1 / (1 + Math.E ^ -tempmatrixarray(0, i))))
         Next
-        MyBase.pushtoarry(temparray)
+        pushtoarryvector(temparray)
     End Sub
-
 
 
 

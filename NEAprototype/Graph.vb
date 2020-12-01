@@ -15,18 +15,18 @@ Public Class Graph
 
     Sub New(ByVal isnewnetwork As Boolean, ByVal networksize As Integer())
         Dim nullarray() As Double = {}
-        ReDim activations(networksize.Length)
-        ReDim biases(networksize.Length - 1)
-        ReDim zvalues(networksize.Length - 1)
-        ReDim errors(networksize.Length - 1)
-        ReDim weightsmatrix(networksize.Length - 1)
+        ReDim activations(networksize.Length-1)
+        ReDim biases(networksize.Length - 2)
+        ReDim zvalues(networksize.Length - 2)
+        ReDim errors(networksize.Length - 2)
+        ReDim weightsmatrix(networksize.Length - 2)
         ReDim networksizefinal(networksize.Length - 1)
         networksizefinal = networksize
         If isnewnetwork Then
             activations(0) = New vector(networksize(0), nullarray)
 
             For i = 1 To networksize.Length - 1
-                activations(i) = New vector(networksize(i), nullarray)
+                activations(i) = New vector(networksize(i - 1), nullarray)
                 biases(i - 1) = New vector(networksize(i - 1), nullarray)
                 zvalues(i - 1) = New vector(networksize(i - 1), nullarray)
                 errors(i - 1) = New vector(networksize(i - 1), nullarray)
@@ -71,20 +71,40 @@ Public Class Graph
 
     End Sub
 
-    Public Function sendtestingdatathroughnetwrok(ByVal inputarray() As Double) As Integer
-        Dim newinputarray(0, inputarray.Length - 1) As Double
+    Public Function senddatathroughnetwrok(ByVal inputarray() As Double, ByVal Istrainingdata As Boolean) As Integer
+        Dim newinputarray(inputarray.Length - 1) As Double
         Dim highestoutput As Integer
-        Dim readoutputvalue As Double
+
         For i = 0 To inputarray.Length - 1
-            newinputarray(0, i) = inputarray(i)
+            newinputarray(i) = inputarray(i)
         Next
-        activations(0).pushtoarry(newinputarray)
-        For i = 0 To networksizefinal.Length - 1
+        activations(0).pushtoarryvector(newinputarray)
+        For i = 0 To networksizefinal.Length - 2
             zvalues(i) = weightsmatrix(i).matrixtimesvector(activations(i))
             zvalues(i) = zvalues(i).addvectors(biases(i))
             activations(i + 1) = New vector(inputarray.Length - 1, zvalues(i).sigmoid())
         Next
+        If Not Istrainingdata Then
+            Return findhighestinarray()
+        End If
+        Return 0
+    End Function
 
+
+    Public Sub sendTrainingData(ByVal inputarray() As Double, ByVal lable As Integer)
+        senddatathroughnetwrok(inputarray, True)
+        Dim lasterrortemp(networksizefinal.Last - 1) As Double
+
+        errors.(networksizefinal.Length - 2) = New vector(0)
+    End Sub
+
+    Public Sub backpropagation()
+
+    End Sub
+
+    Public Function findhighestinarray()
+        Dim readoutputvalue As Double = 0
+        Dim highestoutput As Integer
         For i = 0 To networksizefinal.Last - 1
 
             If activations.Last.getarrayout()(0, i) > readoutputvalue Then
@@ -94,12 +114,6 @@ Public Class Graph
         Next
         Return highestoutput
     End Function
-
-    Public Sub backpropagation()
-
-    End Sub
-
-
 
 
 
